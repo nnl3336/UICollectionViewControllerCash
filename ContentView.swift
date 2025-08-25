@@ -93,7 +93,8 @@ class PhotoCollectionViewController: UIViewController, UICollectionViewDataSourc
 
     private func setupFRC(context: NSManagedObjectContext) {
         let request: NSFetchRequest<Photo> = Photo.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Photo.creationDate, ascending: true)]
+        // 👇 新しい順に変更
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \Photo.creationDate, ascending: false)]
         request.fetchBatchSize = 50
 
         frc = NSFetchedResultsController(fetchRequest: request,
@@ -104,6 +105,7 @@ class PhotoCollectionViewController: UIViewController, UICollectionViewDataSourc
 
         try? frc.performFetch()
     }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

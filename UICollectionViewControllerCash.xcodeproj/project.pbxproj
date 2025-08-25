@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		184E9D2C2E5C474C003B03D3 /* UICollectionViewControllerCash.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 184E9D2A2E5C474C003B03D3 /* UICollectionViewControllerCash.xcdatamodeld */; };
 		184E9D2E2E5C474C003B03D3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E9D2D2E5C474C003B03D3 /* ContentView.swift */; };
+		184E9D992E5C602F003B03D3 /* UITextViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E9D982E5C602F003B03D3 /* UITextViewWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +35,7 @@
 		184E9D2D2E5C474C003B03D3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		184E9D392E5C474E003B03D3 /* UICollectionViewControllerCashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UICollectionViewControllerCashTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		184E9D432E5C474E003B03D3 /* UICollectionViewControllerCashUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UICollectionViewControllerCashUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		184E9D982E5C602F003B03D3 /* UITextViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -86,6 +88,7 @@
 				184E9D3C2E5C474E003B03D3 /* UICollectionViewControllerCashTests */,
 				184E9D462E5C474E003B03D3 /* UICollectionViewControllerCashUITests */,
 				184E9D2D2E5C474C003B03D3 /* ContentView.swift */,
+				184E9D982E5C602F003B03D3 /* UITextViewWrapper.swift */,
 				184E9D2A2E5C474C003B03D3 /* UICollectionViewControllerCash.xcdatamodeld */,
 				184E9D242E5C474C003B03D3 /* Products */,
 			);
@@ -246,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				184E9D2C2E5C474C003B03D3 /* UICollectionViewControllerCash.xcdatamodeld in Sources */,
+				184E9D992E5C602F003B03D3 /* UITextViewWrapper.swift in Sources */,
 				184E9D2E2E5C474C003B03D3 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -417,7 +421,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
@@ -456,7 +460,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
