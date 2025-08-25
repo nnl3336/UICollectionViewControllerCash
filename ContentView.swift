@@ -10,16 +10,28 @@ import CoreData
 
 import UIKit
 
+import SwiftUI
+import PhotosUI
+
+import SwiftUI
+import PhotosUI
+
 struct ContentView: View {
     @Environment(\.managedObjectContext) var context
     @State private var selectedPhoto: Photo?
+    @State private var pickerItems: [PhotosPickerItem] = []   // 複数選択対応
 
     var body: some View {
         NavigationView {
             VStack {
                 PhotoGridView(selectedPhoto: $selectedPhoto)
-                
-                Button(action: addPhoto) {
+
+                PhotosPicker(
+                    selection: $pickerItems,
+                    maxSelectionCount: 0, // 0 は無制限
+                    matching: .images,
+                    photoLibrary: .shared()
+                ) {
                     Text("写真を追加")
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -28,6 +40,9 @@ struct ContentView: View {
                         .cornerRadius(8)
                 }
                 .padding()
+                .onChange(of: pickerItems) { newItems in
+                    loadPhotos(newItems)
+                }
             }
             .navigationTitle("Photos")
             .sheet(item: $selectedPhoto) { photo in
@@ -35,19 +50,30 @@ struct ContentView: View {
             }
         }
     }
-    
-    func addPhoto() {
-        let newPhoto = Photo(context: context)
-        newPhoto.creationDate = Date()
-        
-        // ここではテスト用に白画像を追加
-        newPhoto.imageData = UIImage(systemName: "photo")?.jpegData(compressionQuality: 0.8)
-        
-        do {
-            try context.save()
-        } catch {
-            print("保存失敗: \(error)")
+
+    func loadPhotos(_ items: [PhotosPickerItem]) {
+        for item in items {
+            item.loadTransferable(type: Data.self) { result in
+                switch result {
+                case .success(let data?):
+                    DispatchQueue.main.async {
+                        let newPhoto = Photo(context: context)
+                        newPhoto.creationDate = Date()
+                        newPhoto.imageData = data
+                        do {
+                            try context.save()
+                        } catch {
+                            print("保存失敗: \(error)")
+                        }
+                    }
+                case .success(nil):
+                    print("データなし")
+                case .failure(let error):
+                    print("読み込み失敗: \(error)")
+                }
+            }
         }
+        pickerItems = [] // 選択リセット
     }
 }
 
