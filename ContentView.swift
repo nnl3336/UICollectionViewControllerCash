@@ -20,6 +20,8 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var context
     @State private var selectedPhoto: Photo?
     @State private var selectedCount: Int = 1 // 選択枚数を変数で管理
+    
+    @State private var pickerItems: [PhotosPickerItem] = []   // 複数選択対応
 
     var body: some View {
         NavigationView {
@@ -37,6 +39,24 @@ struct ContentView: View {
                 .background(Color.blue)
                 .foregroundColor(.white)
                 .cornerRadius(8)
+                
+                PhotosPicker(
+                    selection: $pickerItems,
+                    maxSelectionCount: 0, // 0 は無制限
+                    matching: .images,
+                    photoLibrary: .shared()
+                ) {
+                    Text("写真を追加")
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+                .padding()
+                .onChange(of: pickerItems) { newItems in
+                    loadPhotos(newItems)
+                }
             }
             .navigationTitle("Photos")
             .sheet(item: $selectedPhoto) { photo in
@@ -44,6 +64,32 @@ struct ContentView: View {
             }
         }
     }
+    
+    func loadPhotos(_ items: [PhotosPickerItem]) {
+        for item in items {
+            item.loadTransferable(type: Data.self) { result in
+                switch result {
+                case .success(let data?):
+                    DispatchQueue.main.async {
+                        let newPhoto = Photo(context: context)
+                        newPhoto.creationDate = Date()
+                        newPhoto.imageData = data
+                        do {
+                            try context.save()
+                        } catch {
+                            print("保存失敗: \(error)")
+                        }
+                    }
+                case .success(nil):
+                    print("データなし")
+                case .failure(let error):
+                    print("読み込み失敗: \(error)")
+                }
+            }
+        }
+        pickerItems = [] // 選択リセット
+    }
+
 
     func addDummyPhotos(multiplier: Int) {
         let total = multiplier * 100
