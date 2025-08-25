@@ -16,11 +16,37 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            PhotoGridView(selectedPhoto: $selectedPhoto)
-                .navigationTitle("Photos")
-                .sheet(item: $selectedPhoto) { photo in
-                    PhotoDetailView(photo: photo)
+            VStack {
+                PhotoGridView(selectedPhoto: $selectedPhoto)
+                
+                Button(action: addPhoto) {
+                    Text("写真を追加")
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
                 }
+                .padding()
+            }
+            .navigationTitle("Photos")
+            .sheet(item: $selectedPhoto) { photo in
+                PhotoDetailView(photo: photo)
+            }
+        }
+    }
+    
+    func addPhoto() {
+        let newPhoto = Photo(context: context)
+        newPhoto.creationDate = Date()
+        
+        // ここではテスト用に白画像を追加
+        newPhoto.imageData = UIImage(systemName: "photo")?.jpegData(compressionQuality: 0.8)
+        
+        do {
+            try context.save()
+        } catch {
+            print("保存失敗: \(error)")
         }
     }
 }
